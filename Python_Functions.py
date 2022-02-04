@@ -183,7 +183,7 @@ def prepare_for_horizontal_fit(input_predicted, input_measured):
     zeros = pd.DataFrame({'Real_spectrum': list_of_zeros})
     
     list_of_df = []
-    for k in range(1, len(input_measured.columns)-1): 
+    for k in range(1, len(input_measured.columns)): 
         x =pd.DataFrame({'Real_spectrum':input_measured.iloc[:,k]})
         list_of_df.append(x)
         
@@ -198,7 +198,33 @@ def prepare_for_horizontal_fit(input_predicted, input_measured):
     New_predicted = pd.concat([predicted, zeros_predicted], ignore_index = True)
     
     return [New_real_spectra, New_predicted]
+
+def plot_separate_plots(Input_list_of_spectra, labels):
+    colour_list = []
+    for k in range(len(Input_list_of_spectra)): 
+        colour = 'C' + str(k)
+        colour_list.append(colour)
+    label_list = []
+    
+    for k in range(len(Input_list_of_spectra)): 
+        label = labels[k] + ' mgml$^-$$^1$'
+        label_list.append(label)
+        
+    rows = math.ceil(len(Input_list_of_spectra)/3)
+    
+    fig, axs = plt.subplots(rows, 3, figsize=(20,8))
+    for i in np.arange(rows):
+        row = i
+        for j in range(0,3): 
+            axs[row, j].plot(Input_list_of_spectra[j + row*3], colour_list[j + row*3], label = label_list[j + row*3])
+    
+    for ax in axs.flat:
+         ax.set(xlabel='Number of data points', ylabel='Absorbance')
+         leg = ax.legend(fontsize = 10, loc='upper right', frameon=True)
     
     
+        
+    
+        
          
 
