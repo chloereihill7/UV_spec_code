@@ -12,6 +12,7 @@ from scipy.signal import savgol_filter
 import math
 from pandas import DataFrame
 
+
 """function for plotting single data set on single axis""" 
 def single_dataset_plot(real_x_axis, real_y_axis, colours, labels, lower_xlim = 240, higher_xlim = 310,
                         lower_ylim = 0, higher_ylim = 1.35, figsize_x = 10, figsize_y = 7, 
@@ -220,11 +221,47 @@ def plot_separate_plots(Input_list_of_spectra, labels):
     
     for ax in axs.flat:
          ax.set(xlabel='Number of data points', ylabel='Absorbance')
-         leg = ax.legend(fontsize = 10, loc='upper right', frameon=True)
-    
-    
-        
-    
-        
+         ax.legend(fontsize = 10, loc='upper right', frameon=True)
          
+         
+def old_horizontal_curve_fit(predicted_spectrum, measured_spectra, wavelengths):
+    predicted_spectrum = predicted_spectrum['Predicted_spectrum']/1000
+    predicted_spectrum = pd.DataFrame(predicted_spectrum, columns = ['Predicted_spectrum'])
+    Length = int(len(predicted_spectrum)/3)
+    wavelengths = np.arange(198, 320, 0.2)
+    upper_limit = Length + 15/round((wavelengths[1]-wavelengths[0]),2)
+    Total = Length*2
+    RMSE = []
+    WL_shift = []
 
+    
+    for k in range(len(measured_spectra)): 
+        Measured_spectrum = measured_spectra[k]
+        rmse_tot = []
+        
+        for i in np.arange(Length, upper_limit): 
+            f = int(i)
+            zeros_pred_1 = pd.DataFrame([0]*f, columns = ['Predicted_spectrum'])
+            zeros_pred_2 = pd.DataFrame([0]*(Total-f), columns = ['Predicted_spectrum'])
+            #predicted_abs = pd.DataFrame({'Predicted Spectrum':predicted_spectrum})
+            New_pred_spectra = pd.concat([zeros_pred_1, predicted_spectrum, zeros_pred_2], ignore_index = True)
+            SUM = 0
+            count = 0
+            
+            for j in np.arange(915, 1073): 
+                diff = Measured_spectrum['Real_spectrum'][j] - New_pred_spectra['Predicted_spectrum'][j]
+                diff_sqrd = diff**2
+                count +=1
+                SUM += diff_sqrd
+                MSS = SUM/count
+                rmse = math.sqrt(MSS)
+            rmse_tot.append(rmse)
+            #print(rmse_tot)
+            #print(rmse_tot)
+        minimum = rmse_tot.index(min(rmse_tot))
+        wavelength_shift = round(minimum*0.2,2)
+        RMSE.append(minimum)
+        WL_shift.append(wavelength_shift)
+        
+    return [RMSE,  WL_shift]
+    
