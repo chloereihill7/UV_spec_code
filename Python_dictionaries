@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu May 12 17:47:00 2022
+
+@author: mjki4cr2
+"""
+
+#dictionary for SYMPHONX methods from Feb 2022 trip to fujifilm
+METHOD_GUID_dict = {'0b0d3da7-8fc5-413f-aef0-c7f1202dc8fa':'CEX (Clean & Store)',
+                    '1d9b33ac-bf18-4901-8ba0-f2019ab60198': 'CEX run v1',
+                    '4bf262af-3a03-436e-a27b-06f1543bfe0b':'CEX-column elution v2',
+                    '4e8bc8a9-23b1-4ac1-9c12-ba2abc78f996':'Protein A (storage)',
+                    '5c25ecce-24f3-4c0f-b29d-0c47a00993c0':'CEX HETP',
+                    '96e7f5b6-18af-4a9d-b309-d45ad9553820':'CEX (pre-clean)',
+                    '30f406d7-61f0-4e1b-bda7-5d32466ad1ab':'CEX (pre-clean,v2)',
+                    '216c82c4-37c3-46bf-9315-1b113452d48a':'CEX post-use clean',
+                    '324b6c3f-4908-4824-a77a-580ef0c940db':'CEX run v4',
+                    '779ba6e4-ef09-41ce-9320-2dc509b50d37':'UFDF',
+                    '6212c6e1-a464-41b9-bb26-74553176df35':'Protein A (pre-clean)',
+                    '42089f18-9d50-4e31-8f95-ba8c98bb70ac':'CEX-column elution v1',
+                    '68366e68-9b8c-404c-bfb6-4994e79117c1':'Protein A v3',
+                    '103233bd-8778-41c3-be7f-693808620655':'Protein A',
+                    'a64ed7f2-4b4a-434c-99f2-bc2e80c12448':'CEX elution block',
+                    'a70e17c1-1e73-4ab2-b627-38d30dcfabb5':'Protein A v2',
+                    'd681dfee-8849-42d8-a3c5-3412ec002ba5':'Protein A HETP'}   
